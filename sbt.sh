@@ -1,7 +1,7 @@
 # run only a single test in idea
 put cursor in a test and press Alt + Shift + F10
 
-# package jar file
+# package jar file. This phase will build and run tests. If tests fail the jar will not be packaged.
 $ sbt assembly
 
 # sbt goals
