@@ -1,5 +1,3 @@
-
-
 #http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html
 
 #list cli config
@@ -40,12 +38,6 @@ aws console should update to hyperlinks
 http://ec2-34-209-18-207.us-west-2.compute.amazonaws.com:18080/
 # ganglia
 http://ec2-34-209-18-207.us-west-2.compute.amazonaws.com/ganglia/
-
-# run flume
-~/apps/apache-flume-1.7.0-bin/bin/flume-ng agent --conf ~/apps/apache-flume-1.7.0-bin/conf --conf-file joey_agent.conf --name joey_agent
-
-# tail logs while running flume agent
-tail -f logs/flume.log
 
 # copy from local to emr
 scp -i ~/workspace/aws-access-keys/ec2-keypairs/joey-pair.pem /Users/joey/workspace/abc/* hadoop@ec2-52-37-14-12.us-west-2.compute.amazonaws.com:~/
