@@ -1,0 +1,100 @@
+http://www.regular-expressions.info/
+
+Metacharacters
+Metacharachters always need to be escaped with a backslash. Eg. how are you\? is needed if you want to match how are you?
+
+12 regex special meta-characters:
+\ - backslash
+^ - caret
+$ - dollar
+
+. - dot
+The dot matches a single character. gr.y matches gray, grey, gr%y, etc. 
+Use the dot sparingly. Often, a character class or negated character class is faster and more precise.
+
+| - pipe
+? - question mark
+* - star
++ - plus
+( - opening brace
+) - closing brace
+[ - opening square bracket
+{ - opening curly braket
+
+
+Character classes or Character sets
+to match one out of several characters, use character class such as [abc]. 
+Eg to match hop or how use ho[wp]
+
+Use [0-9] to match a single digit between the boundaries.
+
+[0-9a-fA-F] matches a single hexadecimal digit, case agnostic
+
+[0-9a-fxA-FX] matches a hexadecimal digit or the letter X.
+
+[^abc] Typing a caret after the opening square bracket negates the character class. Any character except a, b or c.
+
+
+Shorthand Character Classes
+\d - matches a single character that is a digit
+\w - matches a "word character" (alphanumeric characters plus underscore)
+\s - matches whitespace character (includes tabs and line breaks)
+
+Anchors
+Anchors do not match any characters. They match a position. 
+^ matches at the start of the string, and $ matches at the end of the string. 
+Most regex engines have a "multi-line" mode that makes ^ match after any line break, and $ before any line break. 
+E.g. ^b matches only the first b in bob.
+
+\b matches at a word boundary. 
+A word boundary is a position between a character that can be matched by \w and a character that cannot be matched by \w. 
+\b also matches at the start and/or end of the string if the first and/or last characters in the string are word characters. 
+\B matches at every position where \b cannot match.
+
+Alternation
+Alternation is the regular expression equivalent of "or". cat|dog matches cat in About cats and dogs. If the regex is applied again, it matches dog. You can add as many alternatives as you want: cat|dog|mouse|fish.
+
+Alternation has the lowest precedence of all regex operators. 
+cat|dog food matches cat or dog food. 
+To create a regex that matches cat food or dog food, you need to group the alternatives: (cat|dog) food.
+
+Repetition
+The question mark makes the preceding token in the regular expression optional. colou?r matches colour or color.
+
+The asterisk or star tells the engine to attempt to match the preceding token zero or more times. The plus tells the engine to attempt to match the preceding token once or more. <[A-Za-z][A-Za-z0-9]*> matches an HTML tag without any attributes. <[A-Za-z0-9]+> is easier to write but matches invalid tags such as <1>.
+
+Use curly braces to specify a specific amount of repetition. Use \b[1-9][0-9]{3}\b to match a number between 1000 and 9999. \b[1-9][0-9]{2,4}\b matches a number between 100 and 99999.
+
+
+Greedy and Lazy repetion
+The repetition operators or quantifiers are greedy. They expand the match as far as they can, and only give back if they must to satisfy the remainder of the regex. The regex <.+> matches <EM>first</EM> in This is a <EM>first</EM> test.
+
+Place a question mark after the quantifier to make it lazy. <.+?> matches <EM> in the above string.
+
+A better solution is to follow my advice to use the dot sparingly. Use <[^<>]+> to quickly match an HTML tag without regard to attributes. The negated character class is more specific than the dot, which helps the regex engine find matches quickly.
+
+
+Grouping and capturing
+Place parentheses around multiple tokens to group them together. You can then apply a quantifier to the group. E.g. Set(Value)? matches Set or SetValue.
+
+Parentheses create a capturing group. The above example has one group. After the match, group number one contains nothing if Set was matched. It contains Value if SetValue was matched. How to access the group's contents depends on the software or programming language you're using. Group zero always contains the entire regex match.
+
+Use the special syntax Set(?:Value)? to group tokens without creating a capturing group. This is more efficient if you don't plan to use the group's contents. Do not confuse the question mark in the non-capturing group syntax with the quantifier.
+
+Back references
+Within the regular expression, you can use the backreference \1 to match the same text that was matched by the capturing group. ([abc])=\1 matches a=a, b=b, and c=c. It does not match anything else. If your regex has multiple capturing groups, they are numbered counting their opening parentheses from left to right.
+
+
+Lookaround
+Lookaround is a special kind of group. The tokens inside the group are matched normally, but then the regex engine makes the group give up its match and keeps only the result. Lookaround matches a position, just like anchors. It does not expand the regex match.
+
+q(?=u) matches the q in question, but not in Iraq. This is positive lookahead. The u is not part of the overall regex match. The lookahead matches at each position in the string before a u.
+
+q(?!u) matches q in Iraq but not in question. This is negative lookahead. The tokens inside the lookahead are attempted, their match is discarded, and the result is inverted.
+
+To look backwards, use lookbehind. (?<=a)b matches the b in abc. This is positive lookbehind. (?<!a)b fails to match abc.
+
+You can use a full-fledged regular expression inside lookahead. Most applications only allow fixed-length expressions in lookbehind.
+
+
+

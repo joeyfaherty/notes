@@ -150,3 +150,15 @@ git reset HEAD~
 
 git remote add origin git@github.com:JGHInternet/tillyoudrop
 git push -u origin master
+
+# count remote branches
+git branch -a | wc -l
+
+# git autocomplete mac
+# download this file to your home directory
+curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-completion.bash -o ~/.git-completion.bash
+
+# add this to your bash_profile so that it will use the downloaded file
+if [ -f ~/.git-completion.bash ]; then
+  . ~/.git-completion.bash
+fi

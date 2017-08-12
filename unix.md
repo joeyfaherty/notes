@@ -53,3 +53,6 @@ ps -p "$$" -o etime=
 
 # find all checkstyle files and delete them
 rm $(find . -iname "*checkstyle-*.xml")
+
+# get only current directory now full pwd
+basename "$PWD"
