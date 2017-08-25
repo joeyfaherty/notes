@@ -162,3 +162,9 @@ curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-com
 if [ -f ~/.git-completion.bash ]; then
   . ~/.git-completion.bash
 fi
+
+# remote branch clean up
+# delete all branches except master
+git branch -a --merged remotes/origin/master | grep -v master | grep "remotes/origin/" | cut -d "/" -f 3- | xargs -n 1 git push --delete origin
+# To do a dry run :-)
+git branch -a --merged remotes/origin/master | grep -v master | grep "remotes/origin/" | cut -d "/" -f 3- | xargs -n 1 cat

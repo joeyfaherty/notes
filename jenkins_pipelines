@@ -1,0 +1,17 @@
+You cannot use stash outside of a node, as it is meant to copy "stashed" files from the orchestrating Master to the node that runs the code.
+
+jenkinsfile release:
+def lastCommit = sh returnStdout: true, script: 'git log -1 --pretty=%B'
+
+if (lastCommit.contains("[maven-release-plugin]")){
+            sh "echo  Maven release detected"  //dont trigger build
+
+        } else {
+            sh "echo Last commit is not from maven release plugin" //do build steps 
+            <..build Job...>
+        }
+
+Configure your IDEA to pick up Jenkinsfile as a groovy file: Prefs > File Types > Groovy > Add the Jenkinsfile
+Then your Jekinsfile will be compiled in the IDE and you will see compile errors before Runtime
+
+

@@ -1,3 +1,5 @@
+https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/#general-guidelines-and-recommendations
+
 docker rm $(docker stop $(docker ps -aq))
 docker logs 2f00689b8884
 
@@ -71,3 +73,8 @@ sudo service docker restart
 DOCKER_HOST=tcp://localhost:2375
 #The solution is to unset the variable, after that docker commands work without sudo.
 unset DOCKER_HOST
+
+
+# Copy on write:
+I think you should read up on how docker uses "copy on write" to save space. In a nutshell it means that if you run multiple containers from the same image they all share the same files. Files are only copied if a change is made to a file. So running 100 containers or 1 doesn't increase space used on your file system. It's a really interesting concept.
+
