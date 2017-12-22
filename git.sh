@@ -164,7 +164,19 @@ if [ -f ~/.git-completion.bash ]; then
 fi
 
 # remote branch clean up
-# delete all branches except master
+# delete all remote merged branches
 git branch -a --merged remotes/origin/master | grep -v master | grep "remotes/origin/" | cut -d "/" -f 3- | xargs -n 1 git push --delete origin
 # To do a dry run :-)
 git branch -a --merged remotes/origin/master | grep -v master | grep "remotes/origin/" | cut -d "/" -f 3- | xargs -n 1 cat
+
+
+# get only commits from a specific date
+git log --oneline --since="2017-20-05T15:00:00-00:00" >> abc.txt
+
+# get current commit hash
+git rev-parse HEAD
+633e1ece8fc7534090592886334097d868d35b39
+
+# automerge function in jenkins, merges directly from current branch to the target without a explicit merge
+git push ssh://git@git.kpn.org:7999/bi/etl.git HEAD:"$GIT_TARGET_BRANCH"
+

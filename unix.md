@@ -56,3 +56,16 @@ rm $(find . -iname "*checkstyle-*.xml")
 
 # get only current directory now full pwd
 basename "$PWD"
+
+
+# get only commits from a specific date
+git log --oneline --since="2017-20-05T15:00:00-00:00" >> abc.txt
+
+# grep and take only 2nd column and take only unique values
+git log --oneline --since="2017-20-05T15:00:00-00:00" | awk '{print $2}' | grep "ETL-" | sort -u >> releaseJiraUS.txt
+
+
+private key - chmod 440
+public key - chmod 400
+
+

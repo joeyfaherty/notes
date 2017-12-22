@@ -1,0 +1,35 @@
+immutable events for stateful db processing
+
+secondary indexing
+
+application cache management
+
+request hits cache.. hit or miss
+
+if !hit
+db.get()
+cache.put()
+return
+
+traditional problems
+- cache invalidation.. when to invalidate?  
+- race conditions (concurrent writing to cache/db)
+- cold start / bootstrapping (on fresh boot all requests will go to db and overload)
+
+
+
+hacking attempts
+
+1) brute force of failed logins.
+2) external username & password combos taken from 3rd parties on internet.
+
+- anomaly detection
+- real time blocking of suspicious users
+
+Suspicious activity:
+
+- username change
+- password reset
+- user search
+
+

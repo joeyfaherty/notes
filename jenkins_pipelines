@@ -15,3 +15,25 @@ Configure your IDEA to pick up Jenkinsfile as a groovy file: Prefs > File Types 
 Then your Jekinsfile will be compiled in the IDE and you will see compile errors before Runtime
 
 
+
+# build with parametres
+
+Using properties with explicit method syntax will work, i.e.:
+properties( [ ... ] ) rather than properties [ ... ]
+
+Alternatively, it will work without if you specify the parameter name, e.g.:
+
+properties properties: [ ... ]
+
+For example defining three properties is as easy as :
+
+properties([
+  parameters([
+    string(name: 'submodule', defaultValue: ''),
+    string(name: 'submodule_branch', defaultValue: ''),
+    string(name: 'commit_sha', defaultValue: ''),
+  ])
+])
+
+/* Accessible then with : params.submodule, params.submodule_branch...  */
+
